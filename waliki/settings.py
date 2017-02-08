@@ -48,10 +48,10 @@ def _get_markup_settings(user_settings):
                     'writer_name': 'html5',
                     },
                 'Markdown': {
-                    'extensions': ['wikilinks', 'headerid'],
+                    'extensions': ['wikilinks', 'toc'],
                     'extension_configs': {
                         'wikilinks': {'build_url': get_url},
-                        'headerid': {'level': 2},
+                        'toc': {'baselevel': 2},
                     }
                 }
             }
@@ -69,7 +69,10 @@ WALIKI_SLUG_PATTERN = getattr(settings, 'WALIKI_SLUG_PATTERN', '[a-zA-Z0-9-_\/]+
 
 WALIKI_SLUGIFY_FUNCTION = getattr(settings, 'WALIKI_SLUGIFY_FUNCTION', 'waliki.utils.get_slug')
 
+WALIKI_SANITIZE_FUNCTION = getattr(settings, 'WALIKI_SANITIZE_FUNCTION', 'waliki.utils.sanitize')
+
 get_slug = import_string(WALIKI_SLUGIFY_FUNCTION)
+sanitize = import_string(WALIKI_SANITIZE_FUNCTION)
 
 
 # your content folder. by default it's <project_root>/waliki_data
@@ -116,6 +119,8 @@ WALIKI_RST_DIRECTIVES = getattr(settings, 'WALIKI_RST_DIRECTIVES', ['waliki.dire
 WALIKI_RST_TRANSFORMS = getattr(settings, 'WALIKI_RST_TRANSFORMS', ['waliki.directives.transforms.Emojis'])
 
 WALIKI_USE_MATHJAX = getattr(settings, 'WALIKI_USE_MATHJAX', False)
+
+WALIKI_BREADCRUMBS = getattr(settings, 'WALIKI_BREADCRUMBS', False)
 
 
 def WALIKI_UPLOAD_TO(instance, filename):
